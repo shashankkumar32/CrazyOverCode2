@@ -11,7 +11,7 @@ import PokemonCards from "@/components/Ui-common/card";
 
 const App = () => {
   const [input, setInput] = React.useState("");
-  const [pokemon, setPokemon] = React.useState([]);
+  const [pokemon, setPokemon] = React.useState();
   const [allpokedata, setallpokedata] = React.useState([]);
   const onSubmit = () => {
     console.log("working");
@@ -43,8 +43,9 @@ const App = () => {
       sx={{
         height: "100vh",
         width: "100vw",
-        // display: "flex ",
-        // justifyContent: "center",
+        display: "flex ",
+        justifyContent: "center",
+        pt:4
       }}
       className="App"
     >
@@ -58,48 +59,23 @@ const App = () => {
             Search
           </Button>
         </Search>
+        <Box sx={{py:4,display:"flex",justifyContent:"center"}}>
+        
+
         <PokemonCards
           pokemon={pokemon}
-          // name={pokemon?.name}
-
-          // stats={pokemon.stats}
+     
         />
+          </Box>
+          {
+            JSON.stringify(
+
+              pokemon.types.type
+            )
+          
+          }
       </Stack>
-      <Box>
-        <Grid container lg={12} spacing={2}>
-          {JSON.stringify(allpokedata)}
-          {allpokedata?.map((d: any, index) => (
-            <Grid item lg={3}>
-              {" "}
-              <Box sx={{ boxShadow: " rgba(0, 0, 0, 0.16) 0px 1px 4px", p: 1 }}>
-                <Box
-                  sx={{
-                    // backgroundImage: `url(
-                    //   https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${index}.svg)`,
-                    objectFit: "cover",
 
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-
-                    height: "220px",
-                    width: "120px",
-                  }}
-                >
-                  <img
-                    src={`https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${
-                      index + 1
-                    }.svg`}
-                    alt="React Image"
-                    width={120}
-                    height={220}
-                  />
-                </Box>
-                {d.name}
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
     </Box>
   );
 };
