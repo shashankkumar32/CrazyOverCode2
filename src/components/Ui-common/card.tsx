@@ -7,13 +7,29 @@
 // import IconButton from "@mui/material/IconButton";
 // import Typography from "@mui/material/Typography";
 import React, { useEffect } from "react";
+import { styled } from "@mui/material/styles";
 
+import LinearProgress, {
+  linearProgressClasses,
+} from "@mui/material/LinearProgress";
 interface props {
   pokemon?: any;
 }
 
 const PokemonCards: React.FC<props> = ({ pokemon }) => {
   const theme = useTheme();
+  const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+    height: 10,
+    borderRadius: 5,
+    [`&.${linearProgressClasses.colorPrimary}`]: {
+      backgroundColor:
+        theme.palette.grey[theme.palette.mode === "light" ? 200 : 800],
+    },
+    [`& .${linearProgressClasses.bar}`]: {
+      borderRadius: 5,
+      backgroundColor: theme.palette.mode === "light" ? "#1a90ff" : "#308fe8",
+    },
+  }));
   console.log(pokemon);
   const d = pokemon.id;
   //   const array = pokemon.abilities.ability;
@@ -33,35 +49,38 @@ const PokemonCards: React.FC<props> = ({ pokemon }) => {
           <Typography component="div" variant="h5">
             {pokemon.name}
           </Typography>
-
           <Typography
             variant="subtitle1"
             color="text.secondary"
             component="div"
             sx={{ mr: 4 }}
           >
-            Base Experience:{pokemon.base_experience}
+            Height:{pokemon.height}
           </Typography>
+          <Typography
+            variant="subtitle1"
+            color="text.secondary"
+            component="div"
+            sx={{ mr: 4 }}
+          >
+            Weight:{pokemon.weight}
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            color="text.secondary"
+            component="div"
+            sx={{ mr: 4 }}
+          >
+            Experience:{pokemon.base_experience}
+          </Typography>
+          <BorderLinearProgress
+            variant="determinate"
+            value={pokemon.base_experience / 10}
+          />
         </CardContent>
-        <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
-          <IconButton aria-label="previous">
-            {theme.direction === "rtl" ? (
-              <SkipNextIcon />
-            ) : (
-              <SkipPreviousIcon />
-            )}
-          </IconButton>
-          <IconButton aria-label="play/pause">
-            <PlayArrowIcon sx={{ height: 38, width: 38 }} />
-          </IconButton>
-          <IconButton aria-label="next">
-            {theme.direction === "rtl" ? (
-              <SkipPreviousIcon />
-            ) : (
-              <SkipNextIcon />
-            )}
-          </IconButton>
-        </Box>
+        <Button variant={"contained"}>View Profile</Button>
+        {/* <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
+        </Box> */}
       </Box>
       <CardMedia
         // component="img"
@@ -107,3 +126,4 @@ import Typography from "@mui/material/Typography";
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
+import { Button } from "@mui/material";
