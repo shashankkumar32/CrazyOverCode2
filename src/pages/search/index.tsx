@@ -70,7 +70,7 @@ const App = () => {
           {
             JSON.stringify(
 
-              pokemon.types.type
+              pokemon?.types?.type
             )
           
           }
