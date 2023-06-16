@@ -67,34 +67,7 @@ const App = () => {
               {" "}
                <Link style={{ textDecoration: "none" }} href={`pokemon/${d.name}`}>
                 <PokemonListingCards pokemon={d} index={index}/>
-              {/* <Box sx={{ boxShadow: " rgba(0, 0, 0, 0.16) 0px 1px 4px", p: 1 }}>
-                <Box
-                  sx={{
-                    // backgroundImage: `url(
-                    //   https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${index}.svg)`,
-                    objectFit: "cover",
-
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-
-                    height: "220px",
-                    width: "120px",
-                  }}
-                >
-                  <img
-                    src={`https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${
-                     index>9?index-9: index + 1
-                    }.svg`}
-                    alt="React Image"
-                    width={120}
-                    height={220}
-                  />
-                </Box>
-                <Typography sx={{color:"black"}}>
-
-                {d.name}
-                </Typography>
-              </Box> */}
+           
                </Link>
             </Grid>
           ))}
