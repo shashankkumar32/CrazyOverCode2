@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages = ["search", "listing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar() {
@@ -40,7 +40,7 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static" sx={{ background: "#f2f2f2", height: "90px" }}>
+    <AppBar position="static" sx={{ background: "#f2f2f2", height: "90px" ,position:"sticky"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
@@ -61,7 +61,7 @@ function ResponsiveAppBar() {
           >
             <img
               src="https://www.freepnglogos.com/uploads/pokemon-showdown-new-logo-png-24.png"
-              width="200"
+              width="150"
               alt="pokemon showdown new logo png"
             />
           </Typography>
@@ -114,7 +114,7 @@ function ResponsiveAppBar() {
             component="a"
             href=""
             sx={{
-              mr: 2,
+              mr: 0,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
               fontFamily: "monospace",
@@ -126,7 +126,7 @@ function ResponsiveAppBar() {
           >
             <img
               src="https://www.freepnglogos.com/uploads/pokemon-showdown-new-logo-png-24.png"
-              width="200"
+              width="120"
               alt="pokemon showdown new logo png"
             />
           </Typography>
