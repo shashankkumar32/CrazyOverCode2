@@ -4,6 +4,9 @@ import logo from "./logo.svg";
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import Link from 'next/link'
+import randomColor from "randomcolor";
+import ResponsiveAppBar from "../../../layout/appbar"
+
 
 import { json } from "stream/consumers";
 // import { url } from "inspector";
@@ -55,8 +58,14 @@ const App = () => {
   }, []);
 
  
-  return (
+  return (<>
+  <ResponsiveAppBar/>
     <Box sx={{mt:16}}>
+           <Link style={{ textDecoration: "none" }} href={`bookmark`}>
+      <Typography>
+        Bookmark
+        </Typography>
+        </Link>
      
       <Box  sx={{display:"flex",justifyContent:"center"}}>
         <Grid container lg={12} spacing={2}>
@@ -66,7 +75,7 @@ const App = () => {
             <Grid item lg={3} sx={{display:"flex",justifyContent:"center"}}>
               {" "}
                <Link style={{ textDecoration: "none" }} href={`pokemon/${d.name}`}>
-                <PokemonListingCards pokemon={d} index={index}/>
+                <PokemonListingCards pokemon={d} index={index} color={()=>randomColor()}/>
            
                </Link>
             </Grid>
@@ -74,6 +83,7 @@ const App = () => {
         </Grid>
       </Box>
     </Box>
+    </>
   );
 };
 

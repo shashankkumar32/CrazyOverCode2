@@ -5,21 +5,35 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 
 import Typography from "@mui/material/Typography";
-
-import { Button } from "@mui/material";
+import randomColor from "randomcolor";
+import { Button ,Chip} from "@mui/material";
 import React, { useEffect } from "react";
 import { styled } from "@mui/material/styles";
-import randomColor from "randomcolor";
+import axios from "axios";
 
 import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
 interface props {
-  pokemon?: any;
+  name?: any;
+  index?:any;
 }
 
-const PokemonCards: React.FC<props> = ({ pokemon }) => {
+const PokemonCards: React.FC<props> = ({ name,index }) => {
   const theme = useTheme();
+  const [pokemon, setPokemon] = React.useState();
+  const getPokemonData = async () => {
+    const response = await axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${name}`
+    );
+    setPokemon(response.data);
+
+    console.log("pokemon", pokemon);
+    console.log(response.data.name);
+  };
+  useEffect(() => {
+    getPokemonData();
+  },[]);
   const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     height: 10,
     borderRadius: 5,
@@ -32,27 +46,27 @@ const PokemonCards: React.FC<props> = ({ pokemon }) => {
       backgroundColor: theme.palette.mode === "light" ? "#1a90ff" : "#308fe8",
     },
   }));
-  console.log(pokemon);
+//   console.log(pokemon);
   // const d = pokemon.id;
 
-  console.log("its the array", pokemon?.abilities);
-  // const color=randomColor()
-  
+//   console.log("its the array", pokemon?.abilities);
 
   return (
     <Card
       sx={{
         display: "flex",
         boxShadow: " rgba(0, 0, 0, 0.16) 0px 1px 4px",
-        // border:`solid 0.4px ${color}`,
         m: 1,
         width: "340px",
       }}
     >
+       
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <CardContent sx={{ flex: "1 0 auto" }}>
           <Typography component="div" variant="h5">
-            {pokemon?.name}
+            {/* {pokemon?.name}
+             */}
+             {name}
           </Typography>
           <Typography
             variant="subtitle1"
@@ -82,6 +96,18 @@ const PokemonCards: React.FC<props> = ({ pokemon }) => {
             variant="determinate"
             value={pokemon?.base_experience / 10}
           />
+                        <Typography sx={{fontWeight:400,fontSize:"19px"}}>Ability</Typography>
+    {
+        pokemon?.abilities.map((data,i)=>{
+            return <Chip sx={{m:1,borderRadius:"0px",backgroundColor:randomColor()}} label={data.ability.name} />
+        })
+    }
+     <Typography sx={{fontWeight:400,fontSize:"19px"}}>Type</Typography>
+       {
+        pokemon?.types.map((data,i)=>{
+            return <Chip sx={{m:1,borderRadius:"0px",backgroundColor:randomColor()}} label={data.type.name} />
+        })
+    }
           <Button sx={{ mt: 2 }} variant={"contained"}>
             View Profile
           </Button>
@@ -95,8 +121,7 @@ const PokemonCards: React.FC<props> = ({ pokemon }) => {
           width={120}
           height={220}
         />
-        
-        
+        <img src="https://www.freeiconspng.com/uploads/3d-pokeball-pok-mon-go-png-24.png" width="150" alt="3D Pokeball Pokémon Go Png"  />
       </CardMedia>
     </Card>
   );

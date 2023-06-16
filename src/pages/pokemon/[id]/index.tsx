@@ -5,6 +5,8 @@ import { Box, Button, Grid, Stack, Typography,Chip,IconButton } from "@mui/mater
 import { styled } from "@mui/material/styles";
 import randomColor from "randomcolor";
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import { useDispatch } from "react-redux";
+import { addToArray } from "../../../../slice/rootReducer";
 
 import LinearProgress, {
   linearProgressClasses,
@@ -12,6 +14,12 @@ import LinearProgress, {
 
 
 const Details = ({ pokeman }) => {
+        const [name,setName]=React.useState('')
+      const dispatch=useDispatch()
+      const AddCartItem = (text:any) => {
+    dispatch(addToArray({ name:text}));
+  };
+    
     const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
         height: 10,
         borderRadius: 5,
@@ -39,7 +47,7 @@ const Details = ({ pokeman }) => {
                 <Box sx={{py:1.2,boxShadow:" rgba(0, 0, 0, 0.24) 0px 0.4px 0.8px",display:"flex",justifyContent:"space-between"}}>
             <Typography sx={{fontWeight:500,fontSize:"22px",pl:2}}>{pokeman.name}</Typography>
             <Box>
-                <IconButton sx={{mr:2}}>
+                <IconButton sx={{mr:2}} onClick={()=>AddCartItem(pokeman.name)}>
             <BookmarkBorderIcon sx={{height:"28px",width:"28px"}}/>
             </IconButton>
             </Box>

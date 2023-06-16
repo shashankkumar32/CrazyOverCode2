@@ -17,10 +17,12 @@ import LinearProgress, {
 } from "@mui/material/LinearProgress";
 interface props {
   pokemon?: any;
-  index?:any
+  index?:any;
+  color?:any
+
 }
 
-const PokemonListingCards: React.FC<props> = ({ pokemon,index }) => {
+const PokemonListingCards: React.FC<props> = ({ pokemon,index,color }) => {
 
 
   return (
@@ -30,6 +32,7 @@ const PokemonListingCards: React.FC<props> = ({ pokemon,index }) => {
         boxShadow: " rgba(0, 0, 0, 0.16) 0px 1px 4px",
         m: 1,
         width: "340px",
+        backgroundColor:color
       }}
     >
       <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -37,13 +40,14 @@ const PokemonListingCards: React.FC<props> = ({ pokemon,index }) => {
           <Typography component="div" variant="h5">
             {pokemon?.name}
           </Typography>
-         
+
+          <img src="https://www.freeiconspng.com/uploads/3d-pokeball-pok-mon-go-png-24.png" width="150" alt="3D Pokeball Pokémon Go Png"  />
           <Button sx={{ mt: 2 }} variant={"contained"}>
             View Profile
           </Button>
         </CardContent>
       </Box>
-      <CardMedia sx={{ width: 121 }}>
+      <CardMedia sx={{ width: 121,mr:2 }}>
         {" "}
         <img
            src={`https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${
@@ -53,6 +57,7 @@ const PokemonListingCards: React.FC<props> = ({ pokemon,index }) => {
           width={120}
           height={220}
         />
+        
       </CardMedia>
     </Card>
   );
