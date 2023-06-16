@@ -3,11 +3,12 @@ import logo from "./logo.svg";
 
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import axios from "axios";
+import Link from 'next/link'
 
 import { json } from "stream/consumers";
 // import { url } from "inspector";
 import Search from "./inc/search";
-import PokemonCards from "@/components/Ui-common/card";
+import PokemonListingCards from "@/components/Ui-common/listingcard";
 
 const App = () => {
   const [input, setInput] = React.useState("");
@@ -58,13 +59,15 @@ const App = () => {
     <Box sx={{mt:16}}>
      
       <Box  sx={{display:"flex",justifyContent:"center"}}>
-        <Grid container lg={10} spacing={2}>
+        <Grid container lg={12} spacing={2}>
           {/* {JSON.stringify(allpokedata)} */}
           {allpokedata?.map((d: any, index) => (
             
-            <Grid item lg={3}>
+            <Grid item lg={3} sx={{display:"flex",justifyContent:"center"}}>
               {" "}
-              <Box sx={{ boxShadow: " rgba(0, 0, 0, 0.16) 0px 1px 4px", p: 1 }}>
+               <Link style={{ textDecoration: "none" }} href={`pokemon/${d.name}`}>
+                <PokemonListingCards pokemon={d} index={index}/>
+              {/* <Box sx={{ boxShadow: " rgba(0, 0, 0, 0.16) 0px 1px 4px", p: 1 }}>
                 <Box
                   sx={{
                     // backgroundImage: `url(
@@ -87,8 +90,12 @@ const App = () => {
                     height={220}
                   />
                 </Box>
+                <Typography sx={{color:"black"}}>
+
                 {d.name}
-              </Box>
+                </Typography>
+              </Box> */}
+               </Link>
             </Grid>
           ))}
         </Grid>
