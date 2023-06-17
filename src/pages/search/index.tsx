@@ -1,7 +1,6 @@
-import React, { ReactElement, useEffect } from "react";
-import logo from "./logo.svg";
+import React, { ReactElement } from "react";
 
-import { Box, Button, Grid, Stack, Typography, useTheme } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import axios from "axios";
 
 import Search from "./inc/search";
@@ -12,37 +11,34 @@ import ResponsiveAppBar from "../../../layout/appbar";
 const Page: NextPageWithLayout = () => {
   const [input, setInput] = React.useState("");
   const [pokemon, setPokemon] = React.useState();
-  const [allpokedata, setallpokedata] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(false);
+  const [active, setActive] = React.useState(false);
+
   const onSubmit = () => {
+    setActive(true);
+    setError(false);
     console.log("working");
     getPokemonData();
   };
   const getPokemonData = async () => {
-    const response = await axios.get(
-      `https://pokeapi.co/api/v2/pokemon/${input}`
-    );
-    setPokemon(response.data);
-
-    console.log("pokemon", pokemon);
-    console.log(response.data.name);
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon/${input}`
+      );
+      setLoading(false);
+      setPokemon(response.data);
+    } catch (err) {
+      setError(true);
+    }
   };
 
-  const getAllPokemon = async () => {
-    const response = await axios.get(
-      `https://pokeapi.co/api/v2/pokemon/?_limit=10`
-    );
-
-    setallpokedata(response.data.results);
-    console.log(allpokedata);
-  };
-  useEffect(() => {
-    getAllPokemon();
-  });
   return (
     <Box
       sx={{
         height: "100vh",
-        width: "100vw",
+        // width: "100vw",
         display: "flex ",
         justifyContent: "center",
         pt: 4,
@@ -59,17 +55,25 @@ const Page: NextPageWithLayout = () => {
             Search
           </Button>
         </Search>
-        <Box sx={{ py: 4, display: "flex", justifyContent: "center" }}>
-          <PokemonCards pokemon={pokemon} />
-        </Box>
+        {active ? (
+          <>
+            {error ? (
+              <Box>Please Type Correctly</Box>
+            ) : (
+              <Box sx={{ py: 4, display: "flex", justifyContent: "center" }}>
+                {!loading ? <PokemonCards pokemon={pokemon} /> : "loading"}
+              </Box>
+            )}
+          </>
+        ) : (
+          <Box>No query Yet</Box>
+        )}
       </Stack>
     </Box>
   );
 };
 
 Page.getLayout = function getLayout(page: ReactElement) {
-  const theme = useTheme();
-
   return (
     <>
       {" "}

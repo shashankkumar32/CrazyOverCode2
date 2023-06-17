@@ -105,7 +105,8 @@ const results = [
 
 const Page: NextPageWithLayout = () => {
   const [input, setInput] = React.useState("");
-  const [allpokedata, setallpokedata] = React.useState([]);
+  const [allpokedata, setallpokedata] = React.useState<any[]>([]);
+
   const [dynamicpokedata, setalldynamicpokedata] = React.useState([]);
   const [page, setPage] = React.useState(1);
   const [loading, setLoading] = React.useState(true);
@@ -145,11 +146,13 @@ const Page: NextPageWithLayout = () => {
 
   useEffect(() => {
     getCardData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
+
   useEffect(() => {
     deltafetcher();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url]);
-
   const handelInfiniteScroll = async () => {
     // console.log("scrollHeight" + document.documentElement.scrollHeight);
     // console.log("innerHeight" + window.innerHeight);
@@ -173,75 +176,80 @@ const Page: NextPageWithLayout = () => {
 
   return (
     <>
-      <Box sx={{ mt: 16 }}>
+      <Box sx={{ mt: 12 }}>
         {results.map((d, i) => {
           return (
             <Chip
+              key={i}
               onClick={() => onClickHandler(d.name, d.url)}
               label={d.name}
             />
           );
         })}
-
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          {
-            // JSON.stringify(dynamicpokedata)
-          }
-          {!url.length ? (
-            <>
-              <Grid container lg={12} spacing={2}>
-                {allpokedata?.map((d: any, index) => (
-                  <Grid
-                    item
-                    lg={3}
-                    sx={{ display: "flex", justifyContent: "center" }}
-                  >
-                    {" "}
-                    <Link
-                      style={{ textDecoration: "none" }}
-                      href={`pokemon/${d.name}`}
+        {select.length ? <Box>Type:{select}</Box> : null}
+        {loading ? (
+          <Box sx={{ display: "flex", justifyContent: "center" }}>loading</Box>
+        ) : (
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            {
+              // JSON.stringify(dynamicpokedata)
+            }
+            {!url.length ? (
+              <>
+                <Grid container lg={12} spacing={2}>
+                  {allpokedata?.map((d: any, index) => (
+                    <Grid
+                      key={index}
+                      item
+                      lg={3}
+                      sx={{ display: "flex", justifyContent: "center" }}
                     >
-                      <PokemonListingCards
-                        pokemon={d}
-                        index={index}
-                        color={() => randomColor()}
-                      />
-                    </Link>
-                  </Grid>
-                ))}
-              </Grid>
-            </>
-          ) : (
-            <>
-              <Grid container lg={12} spacing={2}>
-                {dynamicpokedata?.slice(0, 10).map((d: any, index) => (
-                  <Grid
-                    item
-                    lg={3}
-                    sx={{ display: "flex", justifyContent: "center" }}
-                  >
-                    {" "}
-                    <Link
-                      style={{ textDecoration: "none" }}
-                      href={`pokemon/${d.pokemon.name}`}
+                      {" "}
+                      <Link
+                        style={{ textDecoration: "none" }}
+                        href={`pokemon/${d.name}`}
+                      >
+                        <PokemonListingCards
+                          pokemon={d}
+                          index={index}
+                          color={() => randomColor()}
+                        />
+                      </Link>
+                    </Grid>
+                  ))}
+                </Grid>
+              </>
+            ) : (
+              <>
+                <Grid container lg={12} spacing={2}>
+                  {dynamicpokedata?.slice(0, 10).map((d: any, index) => (
+                    <Grid
+                      key={index}
+                      item
+                      lg={3}
+                      sx={{ display: "flex", justifyContent: "center" }}
                     >
-                      {/* <PokemonListingCards pokemon={d} index={index} color={()=>randomColor()}/> */}
-                      <PokemonCards name={d.pokemon.name} index={index} />
-                    </Link>
-                  </Grid>
-                ))}
-              </Grid>
-            </>
-          )}
-        </Box>
+                      {" "}
+                      <Link
+                        style={{ textDecoration: "none" }}
+                        href={`pokemon/${d.pokemon.name}`}
+                      >
+                        {/* <PokemonListingCards pokemon={d} index={index} color={()=>randomColor()}/> */}
+                        <PokemonCards name={d.pokemon.name} index={index} />
+                      </Link>
+                    </Grid>
+                  ))}
+                </Grid>
+              </>
+            )}
+          </Box>
+        )}
       </Box>
     </>
   );
 };
 
 Page.getLayout = function getLayout(page: ReactElement) {
-  const theme = useTheme();
-
   return (
     <>
       {" "}

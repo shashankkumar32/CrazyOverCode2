@@ -10,6 +10,7 @@ import { Button, Chip } from "@mui/material";
 import React, { useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import axios from "axios";
+import Image from "next/image";
 
 import LinearProgress, {
   linearProgressClasses,
@@ -27,12 +28,10 @@ const PokemonCards: React.FC<props> = ({ name, index }) => {
       `https://pokeapi.co/api/v2/pokemon/${name}`
     );
     setPokemon(response.data);
-
-    console.log("pokemon", pokemon);
-    console.log(response.data.name);
   };
   useEffect(() => {
     getPokemonData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     height: 10,
@@ -134,7 +133,7 @@ const PokemonCards: React.FC<props> = ({ name, index }) => {
       </Box>
       <CardMedia sx={{ width: 121 }}>
         {" "}
-        <img
+        <Image
           src={`https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${pokemon?.id}.svg`}
           alt="React Image"
           width={120}

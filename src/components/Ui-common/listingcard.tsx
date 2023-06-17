@@ -6,6 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 
 import Typography from "@mui/material/Typography";
+import Image from "next/image";
 
 import { Button } from "@mui/material";
 import React, { useEffect } from "react";
@@ -40,6 +41,7 @@ const PokemonListingCards: React.FC<props> = ({ pokemon, index, color }) => {
           <img
             src="https://www.freeiconspng.com/uploads/3d-pokeball-pok-mon-go-png-24.png"
             width="150"
+            height="150"
             alt="3D Pokeball Pokémon Go Png"
           />
           <Button sx={{ mt: 2 }} variant={"contained"}>
@@ -49,7 +51,7 @@ const PokemonListingCards: React.FC<props> = ({ pokemon, index, color }) => {
       </Box>
       <CardMedia sx={{ width: 121, mr: 2 }}>
         {" "}
-        <img
+        <Image
           src={`https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${
             index > 9 ? index - 9 : index + 1
           }.svg`}

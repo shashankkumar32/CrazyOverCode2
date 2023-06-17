@@ -13,7 +13,7 @@ const Search: React.FC<props> = ({ children, input, setInput }) => {
   return (
     <Box>
       <TextField
-        onChange={(e: any) => setInput(e.target.value)}
+        onChange={(e: any) => setInput(e.target.value.toLowerCase())}
         placeholder="Search"
         sx={{
           width: {

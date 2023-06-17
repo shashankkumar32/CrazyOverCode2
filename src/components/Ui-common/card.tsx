@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
+import Image from "next/image";
 
 import Typography from "@mui/material/Typography";
 
@@ -13,6 +14,7 @@ import { styled } from "@mui/material/styles";
 import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
+import Link from "next/link";
 interface props {
   pokemon?: any;
 }
@@ -31,11 +33,6 @@ const PokemonCards: React.FC<props> = ({ pokemon }) => {
       backgroundColor: theme.palette.mode === "light" ? "#1a90ff" : "#308fe8",
     },
   }));
-  console.log(pokemon);
-  // const d = pokemon.id;
-
-  console.log("its the array", pokemon?.abilities);
-  // const color=randomColor()
 
   return (
     <Card
@@ -47,7 +44,7 @@ const PokemonCards: React.FC<props> = ({ pokemon }) => {
         width: "340px",
       }}
     >
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
+      <Box sx={{ display: "flex", flexDirection: "column", color: "black" }}>
         <CardContent sx={{ flex: "1 0 auto" }}>
           <Typography component="div" variant="h5">
             {pokemon?.name}
@@ -80,14 +77,19 @@ const PokemonCards: React.FC<props> = ({ pokemon }) => {
             variant="determinate"
             value={pokemon?.base_experience / 10}
           />
-          <Button sx={{ mt: 2 }} variant={"contained"}>
-            View Profile
-          </Button>
+          <Link
+            style={{ textDecoration: "none" }}
+            href={`pokemon/${pokemon?.name}`}
+          >
+            <Button sx={{ mt: 2 }} variant={"contained"}>
+              View Profile
+            </Button>
+          </Link>
         </CardContent>
       </Box>
       <CardMedia sx={{ width: 121 }}>
         {" "}
-        <img
+        <Image
           src={`https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${pokemon?.id}.svg`}
           alt="React Image"
           width={120}

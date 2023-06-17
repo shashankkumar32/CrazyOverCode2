@@ -1,5 +1,5 @@
-import React from "react";
-import { Router, useRouter } from "next/router";
+import React, { ReactElement } from "react";
+
 import {
   Box,
   Button,
@@ -14,12 +14,15 @@ import randomColor from "randomcolor";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { useDispatch } from "react-redux";
 import { addToArray } from "../../../../slice/rootReducer";
+import Image from "next/image";
+import { NextPageWithLayout } from "../../_app";
 
 import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
+import ResponsiveAppBar from "../../../../layout/appbar";
 
-const Details = ({ pokeman }: any) => {
+const Page: NextPageWithLayout = ({ pokeman }: any) => {
   const [name, setName] = React.useState("");
   const dispatch = useDispatch();
   const AddCartItem = (text: any) => {
@@ -93,7 +96,7 @@ const Details = ({ pokeman }: any) => {
                 borderRadius: "100%",
               }}
             >
-              <img
+              <Image
                 src={`https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${pokeman?.id}.svg`}
                 alt="React Image"
                 height={240}
@@ -211,4 +214,13 @@ export async function getServerSideProps({ query }: any) {
   }
 }
 
-export default Details;
+Page.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <>
+      {" "}
+      <ResponsiveAppBar />
+      {page}
+    </>
+  );
+};
+export default Page;
