@@ -13,21 +13,29 @@ import { styled } from "@mui/material/styles";
 import randomColor from "randomcolor";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { useDispatch } from "react-redux";
-import { addToArray } from "../../../../slice/rootReducer";
+import { addToArray, deleteFromArray } from "../../../../slice/rootReducer";
 import Image from "next/image";
 import { NextPageWithLayout } from "../../_app";
+import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
 
 import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
 import ResponsiveAppBar from "../../../../layout/appbar";
+import { useSelector } from "react-redux";
 
 const Page: NextPageWithLayout = ({ pokeman }: any) => {
-  const [name, setName] = React.useState("");
+  const [mark, setmarked] = React.useState(false);
   const dispatch = useDispatch();
   const AddCartItem = (text: any) => {
+    setmarked(true);
     dispatch(addToArray({ name: text }));
   };
+  const DeleteFromArray = (text: any) => {
+    setmarked(false);
+    dispatch(deleteFromArray(text));
+  };
+  const Data: any | [] = useSelector((state) => state);
 
   const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     height: 10,
@@ -77,12 +85,21 @@ const Page: NextPageWithLayout = ({ pokeman }: any) => {
               {pokeman.name}
             </Typography>
             <Box>
-              <IconButton
-                sx={{ mr: 2 }}
-                onClick={() => AddCartItem(pokeman.name)}
-              >
-                <BookmarkBorderIcon sx={{ height: "28px", width: "28px" }} />
-              </IconButton>
+              {!mark ? (
+                <IconButton
+                  sx={{ mr: 2 }}
+                  onClick={() => AddCartItem(pokeman.name)}
+                >
+                  <BookmarkBorderIcon sx={{ height: "28px", width: "28px" }} />
+                </IconButton>
+              ) : (
+                <IconButton
+                  sx={{ mr: 2 }}
+                  onClick={() => DeleteFromArray(pokeman.name)}
+                >
+                  <BookmarkRemoveIcon sx={{ height: "28px", width: "28px" }} />
+                </IconButton>
+              )}
             </Box>
           </Box>
         </Grid>

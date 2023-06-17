@@ -13,10 +13,6 @@ const Page: NextPageWithLayout = () => {
 
   return (
     <Box sx={{ mt: 16 }}>
-      <Link style={{ textDecoration: "none" }} href={`bookmark`}>
-        <Typography>Bookmark</Typography>
-      </Link>
-
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         {Data.array.length ? (
           <Grid container lg={12} spacing={2}>

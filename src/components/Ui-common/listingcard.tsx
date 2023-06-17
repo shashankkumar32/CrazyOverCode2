@@ -38,7 +38,7 @@ const PokemonListingCards: React.FC<props> = ({ pokemon, index, color }) => {
             {pokemon?.name}
           </Typography>
 
-          <img
+          <Image
             src="https://www.freeiconspng.com/uploads/3d-pokeball-pok-mon-go-png-24.png"
             width="150"
             height="150"
@@ -53,7 +53,7 @@ const PokemonListingCards: React.FC<props> = ({ pokemon, index, color }) => {
         {" "}
         <Image
           src={`https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${
-            index > 9 ? index - 9 : index + 1
+            index + 1
           }.svg`}
           alt="React Image"
           width={120}

@@ -1,11 +1,14 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from "next/head";
+import Image from "next/image";
+import { Inter } from "next/font/google";
+import styles from "@/styles/Home.module.css";
+import { ReactElement } from "react";
+import ResponsiveAppBar from "../../layout/appbar";
+import { NextPageWithLayout } from "./_app";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+const Page: NextPageWithLayout = () => {
   return (
     <>
       <Head>
@@ -17,36 +20,25 @@ export default function Home() {
       <main className={`${styles.main} ${inter.className}`}>
         <div className={styles.description}>
           <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>src/pages/index.tsx</code>
+            Get started by Navigating through the Nav-Component&nbsp;
+            <code className={styles.code}>NavBaar</code>
           </p>
           <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
+            <Image
+              src="https://www.freepnglogos.com/uploads/pok-mon-go-logo-png-30.png"
+              width="200"
+              height="200"
+              alt="Pokémon GO Logo png"
+            />
           </div>
         </div>
 
         <div className={styles.center}>
           <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
+            src="https://www.freepnglogos.com/uploads/black-pokemon-logo-transparent-27.png"
+            width="200"
+            height="200"
+            alt="Black Pokemon Logo Transparent"
           />
         </div>
 
@@ -110,5 +102,15 @@ export default function Home() {
         </div>
       </main>
     </>
-  )
-}
+  );
+};
+Page.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <>
+      {" "}
+      <ResponsiveAppBar />
+      {page}
+    </>
+  );
+};
+export default Page;

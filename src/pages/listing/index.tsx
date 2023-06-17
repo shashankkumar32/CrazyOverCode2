@@ -176,7 +176,7 @@ const Page: NextPageWithLayout = () => {
 
   return (
     <>
-      <Box sx={{ mt: 12 }}>
+      <Box sx={{ mt: 1 }}>
         {results.map((d, i) => {
           return (
             <Chip
@@ -197,7 +197,7 @@ const Page: NextPageWithLayout = () => {
             {!url.length ? (
               <>
                 <Grid container lg={12} spacing={2}>
-                  {allpokedata?.map((d: any, index) => (
+                  {allpokedata?.slice(10).map((d: any, index) => (
                     <Grid
                       key={index}
                       item

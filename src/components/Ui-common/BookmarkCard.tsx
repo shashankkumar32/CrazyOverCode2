@@ -139,9 +139,10 @@ const PokemonCards: React.FC<props> = ({ name, index }) => {
           width={120}
           height={220}
         />
-        <img
+        <Image
           src="https://www.freeiconspng.com/uploads/3d-pokeball-pok-mon-go-png-24.png"
           width="150"
+          height="120"
           alt="3D Pokeball Pokémon Go Png"
         />
       </CardMedia>
