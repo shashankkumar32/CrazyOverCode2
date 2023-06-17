@@ -111,6 +111,7 @@ const Page: NextPageWithLayout = () => {
   const [page, setPage] = React.useState(1);
   const [loading, setLoading] = React.useState(true);
   const [select, setSelect] = React.useState("");
+  const [trigger, setTrigger] = React.useState(true);
   const [url, setUrl] = React.useState("");
 
   const onClickHandler = (name: any, url: any) => {
@@ -143,15 +144,16 @@ const Page: NextPageWithLayout = () => {
 
     setLoading(false);
   };
+  useEffect(() => {
+    getCardData();
+  }, [trigger]);
 
   useEffect(() => {
     getCardData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   useEffect(() => {
     deltafetcher();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url]);
   const handelInfiniteScroll = async () => {
     // console.log("scrollHeight" + document.documentElement.scrollHeight);
@@ -177,6 +179,14 @@ const Page: NextPageWithLayout = () => {
   return (
     <>
       <Box sx={{ mt: 1 }}>
+        <Button
+          variant="outlined"
+          sx={{ m: 1 }}
+          onClick={() => (trigger ? setTrigger(false) : setTrigger(true))}
+        >
+          ShowAll
+        </Button>
+
         {results.map((d, i) => {
           return (
             <Chip
