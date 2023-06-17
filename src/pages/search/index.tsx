@@ -1,15 +1,15 @@
-import React, { useEffect } from "react";
+import React, { ReactElement, useEffect } from "react";
 import logo from "./logo.svg";
 
-import { Box, Button, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Grid, Stack, Typography, useTheme } from "@mui/material";
 import axios from "axios";
 
-import { json } from "stream/consumers";
-import { url } from "inspector";
 import Search from "./inc/search";
 import PokemonCards from "@/components/Ui-common/card";
+import { NextPageWithLayout } from "../_app";
+import ResponsiveAppBar from "../../../layout/appbar";
 
-const App = () => {
+const Page: NextPageWithLayout = () => {
   const [input, setInput] = React.useState("");
   const [pokemon, setPokemon] = React.useState();
   const [allpokedata, setallpokedata] = React.useState([]);
@@ -45,7 +45,7 @@ const App = () => {
         width: "100vw",
         display: "flex ",
         justifyContent: "center",
-        pt:4
+        pt: 4,
       }}
       className="App"
     >
@@ -59,25 +59,23 @@ const App = () => {
             Search
           </Button>
         </Search>
-        <Box sx={{py:4,display:"flex",justifyContent:"center"}}>
-        
-
-        <PokemonCards
-          pokemon={pokemon}
-     
-        />
-          </Box>
-          {
-            JSON.stringify(
-
-              pokemon?.types?.type
-            )
-          
-          }
+        <Box sx={{ py: 4, display: "flex", justifyContent: "center" }}>
+          <PokemonCards pokemon={pokemon} />
+        </Box>
       </Stack>
-
     </Box>
   );
 };
 
-export default App;
+Page.getLayout = function getLayout(page: ReactElement) {
+  const theme = useTheme();
+
+  return (
+    <>
+      {" "}
+      <ResponsiveAppBar />
+      {page}
+    </>
+  );
+};
+export default Page;

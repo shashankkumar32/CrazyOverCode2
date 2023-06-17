@@ -9,7 +9,6 @@ import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import React, { useEffect } from "react";
 import { styled } from "@mui/material/styles";
-import randomColor from "randomcolor";
 
 import LinearProgress, {
   linearProgressClasses,
@@ -37,7 +36,6 @@ const PokemonCards: React.FC<props> = ({ pokemon }) => {
 
   console.log("its the array", pokemon?.abilities);
   // const color=randomColor()
-  
 
   return (
     <Card
@@ -95,8 +93,6 @@ const PokemonCards: React.FC<props> = ({ pokemon }) => {
           width={120}
           height={220}
         />
-        
-        
       </CardMedia>
     </Card>
   );

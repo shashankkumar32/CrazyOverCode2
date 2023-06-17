@@ -6,7 +6,7 @@ import CardMedia from "@mui/material/CardMedia";
 
 import Typography from "@mui/material/Typography";
 import randomColor from "randomcolor";
-import { Button ,Chip} from "@mui/material";
+import { Button, Chip } from "@mui/material";
 import React, { useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import axios from "axios";
@@ -16,12 +16,12 @@ import LinearProgress, {
 } from "@mui/material/LinearProgress";
 interface props {
   name?: any;
-  index?:any;
+  index?: any;
 }
 
-const PokemonCards: React.FC<props> = ({ name,index }) => {
+const PokemonCards: React.FC<props> = ({ name, index }) => {
   const theme = useTheme();
-  const [pokemon, setPokemon] = React.useState();
+  const [pokemon, setPokemon] = React.useState<any | []>();
   const getPokemonData = async () => {
     const response = await axios.get(
       `https://pokeapi.co/api/v2/pokemon/${name}`
@@ -33,7 +33,7 @@ const PokemonCards: React.FC<props> = ({ name,index }) => {
   };
   useEffect(() => {
     getPokemonData();
-  },[]);
+  }, []);
   const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     height: 10,
     borderRadius: 5,
@@ -46,10 +46,10 @@ const PokemonCards: React.FC<props> = ({ name,index }) => {
       backgroundColor: theme.palette.mode === "light" ? "#1a90ff" : "#308fe8",
     },
   }));
-//   console.log(pokemon);
+  //   console.log(pokemon);
   // const d = pokemon.id;
 
-//   console.log("its the array", pokemon?.abilities);
+  //   console.log("its the array", pokemon?.abilities);
 
   return (
     <Card
@@ -60,13 +60,12 @@ const PokemonCards: React.FC<props> = ({ name,index }) => {
         width: "340px",
       }}
     >
-       
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <CardContent sx={{ flex: "1 0 auto" }}>
           <Typography component="div" variant="h5">
             {/* {pokemon?.name}
              */}
-             {name}
+            {name}
           </Typography>
           <Typography
             variant="subtitle1"
@@ -96,18 +95,38 @@ const PokemonCards: React.FC<props> = ({ name,index }) => {
             variant="determinate"
             value={pokemon?.base_experience / 10}
           />
-                        <Typography sx={{fontWeight:400,fontSize:"19px"}}>Ability</Typography>
-    {
-        pokemon?.abilities.map((data,i)=>{
-            return <Chip sx={{m:1,borderRadius:"0px",backgroundColor:randomColor()}} label={data.ability.name} />
-        })
-    }
-     <Typography sx={{fontWeight:400,fontSize:"19px"}}>Type</Typography>
-       {
-        pokemon?.types.map((data,i)=>{
-            return <Chip sx={{m:1,borderRadius:"0px",backgroundColor:randomColor()}} label={data.type.name} />
-        })
-    }
+          <Typography sx={{ fontWeight: 400, fontSize: "19px" }}>
+            Ability
+          </Typography>
+          {pokemon?.abilities.map((data: any, i: any) => {
+            return (
+              <Chip
+                key={i}
+                sx={{
+                  m: 1,
+                  borderRadius: "0px",
+                  backgroundColor: randomColor(),
+                }}
+                label={data.ability.name}
+              />
+            );
+          })}
+          <Typography sx={{ fontWeight: 400, fontSize: "19px" }}>
+            Type
+          </Typography>
+          {pokemon?.types.map((data: any, i: any) => {
+            return (
+              <Chip
+                key={i}
+                sx={{
+                  m: 1,
+                  borderRadius: "0px",
+                  backgroundColor: randomColor(),
+                }}
+                label={data.type.name}
+              />
+            );
+          })}
           <Button sx={{ mt: 2 }} variant={"contained"}>
             View Profile
           </Button>
@@ -121,7 +140,11 @@ const PokemonCards: React.FC<props> = ({ name,index }) => {
           width={120}
           height={220}
         />
-        <img src="https://www.freeiconspng.com/uploads/3d-pokeball-pok-mon-go-png-24.png" width="150" alt="3D Pokeball Pokémon Go Png"  />
+        <img
+          src="https://www.freeiconspng.com/uploads/3d-pokeball-pok-mon-go-png-24.png"
+          width="150"
+          alt="3D Pokeball Pokémon Go Png"
+        />
       </CardMedia>
     </Card>
   );
